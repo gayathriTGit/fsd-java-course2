@@ -1,0 +1,21 @@
+version: "3"
+services:
+  web:
+    build: .
+    image: localhost:5000/sl-two-tier-web:1.0
+    ports:
+      - "80:6000"
+    deploy:
+      replicas: 5
+    links:
+      - redis
+    networks:
+      - sl-network
+  redis:
+    image: redis
+    expose:
+      - "6379"
+    networks:
+      - sl-network
+networks:
+  sl-network:
